@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
 import com.kirillmesh.firstcomposeapplication.ui.compose.InstagramCard
 import com.kirillmesh.firstcomposeapplication.ui.theme.FirstComposeApplicationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setContent {
             FirstComposeApplicationTheme {
                 Box(
@@ -21,7 +23,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .background(MaterialTheme.colors.background)
                 ) {
-                    InstagramCard()
+                    InstagramCard(viewModel)
                 }
             }
         }
