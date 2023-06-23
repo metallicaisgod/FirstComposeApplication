@@ -17,6 +17,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -95,7 +96,7 @@ fun InstagramCard(
                 text = "www.facebook.com/emotional_health",
                 fontSize = 14.sp
             )
-            FollowButton(isFollowed.value) {
+            FollowButton(isFollowed) {
                 viewModel.changeFollowState()
             }
         }
@@ -104,7 +105,7 @@ fun InstagramCard(
 
 @Composable
 private fun FollowButton(
-    isFollowed: Boolean,
+    isFollowed: State<Boolean>,
     clickListener: () -> Unit
 ) {
     Button(
@@ -112,14 +113,14 @@ private fun FollowButton(
             clickListener()
         },
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (isFollowed) {
+            backgroundColor = if (isFollowed.value) {
                 MaterialTheme.colors.primary.copy(alpha = 0.5f)
             } else {
                 MaterialTheme.colors.primary
             }
         )
     ) {
-        val text = if (isFollowed) {
+        val text = if (isFollowed.value) {
             "Unfollow"
         } else {
             "Follow"
